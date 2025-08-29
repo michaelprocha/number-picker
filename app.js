@@ -34,19 +34,31 @@
 			const vAte = parseInt(ate.value);
 			const vDe = parseInt(de.value);
 
-			if ((vQuantidade >= 1) & (vAte > vDe) & (vQuantidade <= vAte - vDe)) {
+			if (vQuantidade < 1) {
+				alert(`"Quantidade de números: " deve ser maior que 0!`);
+			}
+
+			if (vDe >= vAte) {
+				alert(`"Do número: " deve ser menor que "Até o número: "!`);
+			}
+
+			if (vQuantidade > (vAte - vDe) + 1) {
+				alert(`"Quantidade de números: " deve respeitar os valores "Do número: ", "Até o número: !"`);
+			}
+
+			if ((vQuantidade >= 1) & (vAte > vDe) & (vQuantidade <= (vAte - vDe) + 1)) {
 				let novaMsg = "Números sorteados: ";
-	
+
 				let nSorteado = [];
 				let contador = 0;
-	
+
 				do {
 					let repetido = false;
-	
+
 					nSorteado[contador] = sortearNumero(vDe, vAte);
-	
+
 					repetido = validarNumero(nSorteado, nSorteado[contador]);
-	
+
 					if (repetido == false) {
 						if (contador == vQuantidade - 1) {
 							novaMsg += nSorteado[contador].toString();
@@ -56,12 +68,14 @@
 						contador++;
 					}
 				} while (contador < vQuantidade);
-	
+
 				msgResultado.textContent = novaMsg;
-	
+
 				btnReiniciar.classList.remove("container__botao-desabilitado");
 				btnReiniciar.classList.add("container__botao");
 			}
+		} else {
+			alert("Preencha todos os campos!");
 		}
 	});
 
